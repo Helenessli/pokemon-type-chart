@@ -1,1 +1,25 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
 
+td,
+th {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
+
+.type-header {
+  font-weight: bold;
+  background-color: #f8f9fa;
+}
+
+.clickable-cell {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.clickable-cell:hover {
+  background-color: #e9ecef;
+}

@@ -6,7 +6,6 @@ import NoEffectChart from "./components/NoEffectChart";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 function App() {
-  const [showAnswers, setShowAnswers] = useState(true);
   const [chartType, setChartType] = useState("full");
 
   return (
@@ -41,16 +40,9 @@ function App() {
           >
             No Effect Chart
           </Button>
-          <Button
-            variant="secondary"
-            onClick={() => setShowAnswers(!showAnswers)}
-            className="m-2"
-          >
-            {showAnswers ? "Hide Solution" : "Show Solution"}
-          </Button>
         </Col>
       </Row>
-      {chartType === "full" && <FullChart showAnswers={showAnswers} />}
+      {chartType === "full" && <FullChart />}
       {chartType === "super" && <SuperEffectiveChart />}
       {chartType === "not" && <NotEffectiveChart />}
       {chartType === "no" && <NoEffectChart />}
