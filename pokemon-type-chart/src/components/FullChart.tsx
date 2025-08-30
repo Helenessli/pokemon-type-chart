@@ -452,6 +452,7 @@ const FullChart = () => {
       typeChart={typeChart}
       expectedValues={expectedValues}
       gameMode="full"
+      disableTestMode={true}
     />
   );
 };

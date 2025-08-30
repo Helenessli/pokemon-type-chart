@@ -6,6 +6,7 @@ interface GameModeProps {
   typeChart: string[][];
   expectedValues: (string | number)[][];
   gameMode: string;
+  disableTestMode?: boolean;
 }
 
 const GameMode: React.FC<GameModeProps> = ({
@@ -13,6 +14,7 @@ const GameMode: React.FC<GameModeProps> = ({
   typeChart,
   expectedValues,
   gameMode,
+  disableTestMode = false,
 }) => {
   const [showAnswers, setShowAnswers] = useState(true);
   const [userAnswers, setUserAnswers] = useState<(string | number)[][]>([]);
@@ -155,16 +157,21 @@ const GameMode: React.FC<GameModeProps> = ({
 
       <Row className="mb-3">
         <Col className="text-center">
-          {!isTestMode ? (
+          {!isTestMode && !disableTestMode && (
             <Button variant="primary" onClick={startTest} className="m-2">
               Test Yourself
             </Button>
-          ) : (
+          )}
+          {!isTestMode && disableTestMode && (
+            <Button variant="secondary" disabled className="m-2">
+              Test Yourself
+            </Button>
+          )}
+          {isTestMode && (
             <Button variant="secondary" onClick={resetTest} className="m-2">
               Reset Test
             </Button>
           )}
-
           {!isTestMode && (
             <Button
               variant="secondary"
