@@ -17,7 +17,24 @@ const GameMode: React.FC<GameModeProps> = ({
   const [showAnswers, setShowAnswers] = useState(true);
   const [userAnswers, setUserAnswers] = useState<(string | number)[][]>([]);
   const [errorCount, setErrorCount] = useState(0);
+  const [correctCount, setCorrectCount] = useState(0);
   const [isTestMode, setIsTestMode] = useState(false);
+
+  // Get total correct answers based on game mode
+  const getTotalCorrect = () => {
+    switch (gameMode) {
+      case "full":
+        return 120;
+      case "super":
+        return 51;
+      case "not":
+        return 61;
+      case "no":
+        return 8;
+      default:
+        return 0;
+    }
+  };
 
   const handleCellClick = (rowIndex: number, colIndex: number) => {
     console.log(rowIndex, colIndex);
@@ -33,6 +50,7 @@ const GameMode: React.FC<GameModeProps> = ({
       if (!newAnswers[rowIndex + 1]) newAnswers[rowIndex + 1] = [];
       newAnswers[rowIndex + 1][colIndex] = expectedValue;
       setUserAnswers(newAnswers);
+      setCorrectCount((prev) => prev + 1);
     } else {
       // Wrong answer - increment error counter
       setErrorCount((prev) => prev + 1);
@@ -44,6 +62,7 @@ const GameMode: React.FC<GameModeProps> = ({
     setShowAnswers(false);
     setUserAnswers([]);
     setErrorCount(0);
+    setCorrectCount(0);
   };
 
   const resetTest = () => {
@@ -51,6 +70,7 @@ const GameMode: React.FC<GameModeProps> = ({
     setShowAnswers(true);
     setUserAnswers([]);
     setErrorCount(0);
+    setCorrectCount(0);
   };
 
   const getCellStyle = (rowIndex: number, colIndex: number, value: string) => {
@@ -126,6 +146,9 @@ const GameMode: React.FC<GameModeProps> = ({
         <Row className="mb-3">
           <Col className="text-center">
             <h4>Errors: {errorCount}</h4>
+            <h4>
+              Correct: {correctCount}/{getTotalCorrect()}
+            </h4>
           </Col>
         </Row>
       )}
