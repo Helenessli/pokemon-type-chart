@@ -464,7 +464,6 @@ const expectedValues = [
     "",
     "",
     "",
-    "",
     "2",
     "",
   ],
@@ -592,7 +591,6 @@ const expectedValues = [
     "",
     "",
     "",
-    "",
     "2",
   ],
   [
@@ -610,7 +608,6 @@ const expectedValues = [
     "",
     "",
     "2",
-    "",
     "",
     "",
     "",
