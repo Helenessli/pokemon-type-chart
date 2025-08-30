@@ -23,15 +23,15 @@ const GameMode: React.FC<GameModeProps> = ({
     console.log(rowIndex, colIndex);
     if (!isTestMode || colIndex === 0) return;
 
-    const expectedValue = expectedValues[rowIndex][colIndex];
-    const currentValue = typeChart[rowIndex][colIndex];
+    const expectedValue = expectedValues[rowIndex + 1][colIndex];
+    const currentValue = typeChart[rowIndex + 1][colIndex];
 
     if (currentValue === expectedValue) {
       // Correct answer - highlight the cell
       console.log("correct");
       const newAnswers = [...userAnswers];
-      if (!newAnswers[rowIndex]) newAnswers[rowIndex] = [];
-      newAnswers[rowIndex][colIndex] = expectedValue;
+      if (!newAnswers[rowIndex + 1]) newAnswers[rowIndex + 1] = [];
+      newAnswers[rowIndex + 1][colIndex] = expectedValue;
       setUserAnswers(newAnswers);
     } else {
       // Wrong answer - increment error counter
@@ -58,8 +58,8 @@ const GameMode: React.FC<GameModeProps> = ({
       return { backgroundColor: "transparent", color: "black" };
 
     const numericValue = parseFloat(value);
-    const expectedValue = expectedValues[rowIndex][colIndex];
-    const userAnswer = userAnswers[rowIndex]?.[colIndex];
+    const expectedValue = expectedValues[rowIndex + 1][colIndex];
+    const userAnswer = userAnswers[rowIndex + 1]?.[colIndex];
 
     if (isTestMode && userAnswer === expectedValue) {
       // User got it correct - show the expected color
@@ -96,8 +96,8 @@ const GameMode: React.FC<GameModeProps> = ({
     if (colIndex === 0) return value;
 
     const numericValue = parseFloat(value);
-    const expectedValue = expectedValues[rowIndex][colIndex];
-    const userAnswer = userAnswers[rowIndex]?.[colIndex];
+    const expectedValue = expectedValues[rowIndex + 1][colIndex];
+    const userAnswer = userAnswers[rowIndex + 1]?.[colIndex];
 
     if (isTestMode && userAnswer === expectedValue) {
       // Show the correct answer
