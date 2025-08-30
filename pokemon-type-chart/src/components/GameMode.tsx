@@ -21,6 +21,9 @@ const GameMode: React.FC<GameModeProps> = ({
   const [errorCount, setErrorCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [isTestMode, setIsTestMode] = useState(false);
+  const [clickedCorrectCells, setClickedCorrectCells] = useState<Set<string>>(
+    new Set()
+  );
 
   // Get total correct answers based on game mode
   const getTotalCorrect = () => {
@@ -46,13 +49,22 @@ const GameMode: React.FC<GameModeProps> = ({
     const currentValue = typeChart[rowIndex + 1][colIndex];
 
     if (currentValue === expectedValue) {
-      // Correct answer - highlight the cell
-      console.log("correct");
-      const newAnswers = [...userAnswers];
-      if (!newAnswers[rowIndex + 1]) newAnswers[rowIndex + 1] = [];
-      newAnswers[rowIndex + 1][colIndex] = expectedValue;
-      setUserAnswers(newAnswers);
-      setCorrectCount((prev) => prev + 1);
+      // Create a unique key for this cell
+      const cellKey = `${rowIndex + 1}-${colIndex}`;
+
+      // Check if this cell has already been clicked correctly
+      if (!clickedCorrectCells.has(cellKey)) {
+        // New correct answer - highlight the cell and increment counter
+        console.log("correct");
+        const newAnswers = [...userAnswers];
+        if (!newAnswers[rowIndex + 1]) newAnswers[rowIndex + 1] = [];
+        newAnswers[rowIndex + 1][colIndex] = expectedValue;
+        setUserAnswers(newAnswers);
+        setCorrectCount((prev) => prev + 1);
+
+        // Mark this cell as clicked correctly
+        setClickedCorrectCells((prev) => new Set(prev).add(cellKey));
+      }
     } else {
       // Wrong answer - increment error counter
       setErrorCount((prev) => prev + 1);
@@ -65,6 +77,7 @@ const GameMode: React.FC<GameModeProps> = ({
     setUserAnswers([]);
     setErrorCount(0);
     setCorrectCount(0);
+    setClickedCorrectCells(new Set());
   };
 
   const resetTest = () => {
@@ -73,6 +86,7 @@ const GameMode: React.FC<GameModeProps> = ({
     setUserAnswers([]);
     setErrorCount(0);
     setCorrectCount(0);
+    setClickedCorrectCells(new Set());
   };
 
   const getCellStyle = (rowIndex: number, colIndex: number, value: string) => {
@@ -122,7 +136,6 @@ const GameMode: React.FC<GameModeProps> = ({
     const userAnswer = userAnswers[rowIndex + 1]?.[colIndex];
 
     if (isTestMode && userAnswer === expectedValue) {
-      // Show the correct answer
       if (expectedValue === "2") return "2";
       if (expectedValue === "0.5") return "1/2";
       if (expectedValue === "0") return "0";
@@ -152,35 +165,6 @@ const GameMode: React.FC<GameModeProps> = ({
           </Col>
         </Row>
       )}
-
-      <Row className="mb-3">
-        <Col className="text-center">
-          {!isTestMode && !disableTestMode && (
-            <Button variant="primary" onClick={startTest} className="m-2">
-              Test Yourself
-            </Button>
-          )}
-          {!isTestMode && disableTestMode && (
-            <Button variant="secondary" disabled className="m-2">
-              Test Yourself
-            </Button>
-          )}
-          {isTestMode && (
-            <Button variant="secondary" onClick={resetTest} className="m-2">
-              Reset Test
-            </Button>
-          )}
-          {!isTestMode && (
-            <Button
-              variant="secondary"
-              onClick={() => setShowAnswers(!showAnswers)}
-              className="m-2"
-            >
-              {showAnswers ? "Hide Solution" : "Show Solution"}
-            </Button>
-          )}
-        </Col>
-      </Row>
 
       <Row>
         <Col>
@@ -217,6 +201,35 @@ const GameMode: React.FC<GameModeProps> = ({
               ))}
             </tbody>
           </table>
+        </Col>
+      </Row>
+
+      <Row className="mt-3">
+        <Col className="text-center">
+          {!isTestMode && !disableTestMode && (
+            <Button variant="primary" onClick={startTest} className="m-2">
+              Test Yourself
+            </Button>
+          )}
+          {!isTestMode && disableTestMode && (
+            <Button variant="secondary" disabled className="m-2">
+              Test Yourself
+            </Button>
+          )}
+          {isTestMode && (
+            <Button variant="secondary" onClick={resetTest} className="m-2">
+              Reset Test
+            </Button>
+          )}
+          {!isTestMode && (
+            <Button
+              variant="secondary"
+              onClick={() => setShowAnswers(!showAnswers)}
+              className="m-2"
+            >
+              {showAnswers ? "Hide Solution" : "Show Solution"}
+            </Button>
+          )}
         </Col>
       </Row>
     </Container>
