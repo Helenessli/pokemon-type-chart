@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 interface GameModeProps {
@@ -24,6 +24,7 @@ const GameMode: React.FC<GameModeProps> = ({
   const [clickedCorrectCells, setClickedCorrectCells] = useState<Set<string>>(
     new Set()
   );
+  const [timer, setTimer] = useState(0);
 
   // Get total correct answers based on game mode
   const getTotalCorrect = () => {
@@ -40,6 +41,24 @@ const GameMode: React.FC<GameModeProps> = ({
         return 0;
     }
   };
+
+  // Format timer from seconds to MM:SS
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+  };
+
+  // Timer effect - starts when test begins, stops when all correct grids found
+  useEffect(() => {
+    let interval: number;
+    if (isTestMode && correctCount < getTotalCorrect()) {
+      interval = setInterval(() => {
+        setTimer((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isTestMode, correctCount, getTotalCorrect]);
 
   const handleCellClick = (rowIndex: number, colIndex: number) => {
     console.log(rowIndex, colIndex);
@@ -78,6 +97,7 @@ const GameMode: React.FC<GameModeProps> = ({
     setErrorCount(0);
     setCorrectCount(0);
     setClickedCorrectCells(new Set());
+    setTimer(0);
   };
 
   const resetTest = () => {
@@ -87,6 +107,7 @@ const GameMode: React.FC<GameModeProps> = ({
     setErrorCount(0);
     setCorrectCount(0);
     setClickedCorrectCells(new Set());
+    setTimer(0);
   };
 
   const getCellStyle = (rowIndex: number, colIndex: number, value: string) => {
@@ -162,6 +183,7 @@ const GameMode: React.FC<GameModeProps> = ({
             <h4>
               Correct: {correctCount}/{getTotalCorrect()}
             </h4>
+            <h4>Time: {formatTime(timer)}</h4>
           </Col>
         </Row>
       )}
