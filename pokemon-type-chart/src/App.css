@@ -1,25 +1,52 @@
+/* Global font styling */
+* {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+/* Table styling */
 table {
   border-collapse: collapse;
   width: 100%;
+  border: 1px solid #ddd;
 }
 
-td,
-th {
-  border: 1px solid black;
-  padding: 8px;
-  text-align: center;
-}
-
+/* Type header styling */
 .type-header {
-  font-weight: bold;
   background-color: #f8f9fa;
+  color: #495057;
 }
 
+/* Clickable cell styling */
 .clickable-cell {
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease;
 }
 
 .clickable-cell:hover {
-  background-color: #e9ecef;
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Button styling */
+.btn {
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+/* Heading styling */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  color: #212529;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }

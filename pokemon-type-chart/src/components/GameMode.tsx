@@ -191,32 +191,35 @@ const GameMode: React.FC<GameModeProps> = ({
       <Row>
         <Col>
           <table className="table table-bordered">
-            <thead>
-              <tr>
-                {typeChart[0].map((type, index) => (
-                  <th key={index} className="type-header">
-                    {type}
-                  </th>
-                ))}
-              </tr>
-            </thead>
             <tbody>
-              {typeChart.slice(1).map((row, rowIndex) => (
+              {typeChart.map((row, rowIndex) => (
                 <tr key={rowIndex}>
                   {row.map((value, colIndex) => (
                     <td
                       key={colIndex}
-                      style={getCellStyle(rowIndex, colIndex, value)}
-                      onClick={() => handleCellClick(rowIndex, colIndex)}
+                      style={
+                        rowIndex === 0
+                          ? {}
+                          : getCellStyle(rowIndex - 1, colIndex, value)
+                      }
+                      onClick={
+                        rowIndex === 0
+                          ? undefined
+                          : () => handleCellClick(rowIndex - 1, colIndex)
+                      }
                       className={
-                        colIndex === 0
+                        rowIndex === 0
+                          ? ""
+                          : colIndex === 0
                           ? "type-header"
                           : isTestMode
                           ? "clickable-cell"
                           : ""
                       }
                     >
-                      {getCellContent(rowIndex, colIndex, value)}
+                      {rowIndex === 0
+                        ? value
+                        : getCellContent(rowIndex - 1, colIndex, value)}
                     </td>
                   ))}
                 </tr>

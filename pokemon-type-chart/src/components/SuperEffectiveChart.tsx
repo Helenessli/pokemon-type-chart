@@ -24,7 +24,7 @@ const typeChart = [
     "FAI",
   ],
   [
-    "NOR",
+    "NORMAL",
     "-1",
     "-1",
     "-1",
@@ -45,7 +45,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "FIR",
+    "FIRE",
     "-1",
     "-1",
     "-1",
@@ -66,7 +66,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "WAT",
+    "WATER",
     "-1",
     "2",
     "-1",
@@ -87,7 +87,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "ELE",
+    "ELECTRIC",
     "-1",
     "-1",
     "2",
@@ -108,7 +108,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "GRA",
+    "GRASS",
     "-1",
     "-1",
     "2",
@@ -150,7 +150,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "FIG",
+    "FIGHTING",
     "2",
     "-1",
     "-1",
@@ -171,7 +171,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "POI",
+    "POISON",
     "-1",
     "-1",
     "-1",
@@ -192,7 +192,7 @@ const typeChart = [
     "2",
   ],
   [
-    "GRO",
+    "GROUND",
     "-1",
     "2",
     "-1",
@@ -213,7 +213,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "FLY",
+    "FLYING",
     "-1",
     "-1",
     "-1",
@@ -234,7 +234,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "PSY",
+    "PSYCHIC",
     "-1",
     "-1",
     "-1",
@@ -276,7 +276,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "ROC",
+    "ROCK",
     "-1",
     "2",
     "-1",
@@ -297,7 +297,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "GHO",
+    "GHOST",
     "-1",
     "-1",
     "-1",
@@ -318,7 +318,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "DRA",
+    "DRAGON",
     "-1",
     "-1",
     "-1",
@@ -339,7 +339,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "DAR",
+    "DARK",
     "-1",
     "-1",
     "-1",
@@ -360,7 +360,7 @@ const typeChart = [
     "-1",
   ],
   [
-    "STE",
+    "STEEL",
     "-1",
     "-1",
     "-1",
@@ -381,7 +381,7 @@ const typeChart = [
     "2",
   ],
   [
-    "FAI",
+    "FAIRY",
     "-1",
     "-1",
     "-1",
