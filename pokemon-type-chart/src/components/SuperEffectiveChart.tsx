@@ -808,7 +808,6 @@ const expectedValues = [
 const SuperEffectiveChart = () => {
   return (
     <GameMode
-      title="Super Effective Chart"
       typeChart={typeChart}
       expectedValues={expectedValues}
       gameMode="super"

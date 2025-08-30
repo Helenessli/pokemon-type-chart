@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 interface GameModeProps {
-  title: string;
+  title?: string;
   typeChart: string[][];
   expectedValues: (string | number)[][];
   gameMode: string;
@@ -142,8 +142,6 @@ const GameMode: React.FC<GameModeProps> = ({
 
   return (
     <Container>
-      <h1 className="text-center">{title}</h1>
-
       {isTestMode && (
         <Row className="mb-3">
           <Col className="text-center">

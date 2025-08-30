@@ -448,7 +448,6 @@ const expectedValues = [
 const FullChart = () => {
   return (
     <GameMode
-      title="Pokémon Type Chart - Full"
       typeChart={typeChart}
       expectedValues={expectedValues}
       gameMode="full"

@@ -808,7 +808,6 @@ const expectedValues = [
 const NotEffectiveChart = () => {
   return (
     <GameMode
-      title="Not Effective Chart"
       typeChart={typeChart}
       expectedValues={expectedValues}
       gameMode="not"

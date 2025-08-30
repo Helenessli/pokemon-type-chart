@@ -12,6 +12,11 @@ function App() {
     <Container>
       <Row className="mt-3">
         <Col className="text-center">
+          <h1 className="mb-4">POKÉMON TYPE CHART</h1>
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col className="text-center">
           <Button
             variant="primary"
             onClick={() => setChartType("full")}
