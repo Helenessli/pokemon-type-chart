@@ -96,6 +96,25 @@ body {
   color: #ff9191 !important;
 }
 
+.action-button {
+  background-color: #ff9191 !important;
+  border: 2px solid #ff9191 !important;
+  color: white !important;
+  margin: 0 8px;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.action-button:hover {
+  background-color: #ff9191 !important;
+  border-color: #ff9191 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .answers-display {
   background-color: #ff9191;
   color: white;

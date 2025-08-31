@@ -376,20 +376,28 @@ const GameMode: React.FC<GameModeProps> = ({
         </Col>
       </Row>
 
-      <Row className="mt-3">
+      <Row className="mt-0">
         <Col className="text-center">
           {!isTestMode && !disableTestMode && (
-            <Button variant="primary" onClick={startTest} className="m-2">
+            <Button
+              variant="primary"
+              onClick={startTest}
+              className="action-button"
+            >
               Begin Test
             </Button>
           )}
           {!isTestMode && disableTestMode && (
-            <Button variant="secondary" disabled className="m-2">
+            <Button variant="secondary" disabled className="action-button">
               Begin Test
             </Button>
           )}
           {isTestMode && (
-            <Button variant="secondary" onClick={resetTest} className="m-2">
+            <Button
+              variant="secondary"
+              onClick={resetTest}
+              className="action-button"
+            >
               End Test
             </Button>
           )}
@@ -397,7 +405,7 @@ const GameMode: React.FC<GameModeProps> = ({
             <Button
               variant="secondary"
               onClick={() => setShowAnswers(!showAnswers)}
-              className="m-2"
+              className="action-button"
             >
               {showAnswers ? "Hide Solution" : "Show Solution"}
             </Button>
