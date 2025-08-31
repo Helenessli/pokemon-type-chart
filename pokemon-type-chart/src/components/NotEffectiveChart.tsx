@@ -3,7 +3,7 @@ import GameMode from "./GameMode";
 
 const typeChart = [
   [
-    "",
+    "ATTACK ↴    DEFENSE →",
     "NOR",
     "FIR",
     "WAT",
