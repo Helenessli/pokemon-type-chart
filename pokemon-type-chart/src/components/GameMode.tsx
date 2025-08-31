@@ -121,11 +121,11 @@ const GameMode: React.FC<GameModeProps> = ({
     if (isTestMode && userAnswer === expectedValue) {
       // User got it correct - show the expected color
       if (expectedValue === "2")
-        return { backgroundColor: "green", color: "white" };
+        return { backgroundColor: "#4e9a06", color: "white" };
       if (expectedValue === "0.5")
-        return { backgroundColor: "red", color: "white" };
+        return { backgroundColor: "#a40001", color: "white" };
       if (expectedValue === "0")
-        return { backgroundColor: "black", color: "white" };
+        return { backgroundColor: "#2e3436", color: "white" };
       return { backgroundColor: "transparent", color: "black" };
     }
 
@@ -133,11 +133,12 @@ const GameMode: React.FC<GameModeProps> = ({
       // Show all answers
       if (numericValue === -1)
         return { backgroundColor: "transparent", color: "black" };
-      if (numericValue > 1) return { backgroundColor: "green", color: "white" };
+      if (numericValue > 1)
+        return { backgroundColor: "#4e9a06", color: "white" };
       if (numericValue < 1 && numericValue > 0)
-        return { backgroundColor: "red", color: "white" };
+        return { backgroundColor: "#a40001", color: "white" };
       if (numericValue === 0)
-        return { backgroundColor: "black", color: "white" };
+        return { backgroundColor: "#2e3436", color: "white" };
       return { backgroundColor: "transparent", color: "black" };
     }
 
