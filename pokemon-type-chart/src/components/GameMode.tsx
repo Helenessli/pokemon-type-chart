@@ -199,7 +199,7 @@ const GameMode: React.FC<GameModeProps> = ({
 
     if (isTestMode && userAnswer === expectedValue) {
       if (expectedValue === "2") return "2";
-      if (expectedValue === "0.5") return "1/2";
+      if (expectedValue === "0.5") return "½";
       if (expectedValue === "0") return "0";
       return "";
     }
@@ -207,7 +207,7 @@ const GameMode: React.FC<GameModeProps> = ({
     if (showAnswers) {
       if (numericValue === -1) return "";
       if (numericValue > 1) return "2";
-      if (numericValue < 1 && numericValue > 0) return "1/2";
+      if (numericValue < 1 && numericValue > 0) return "½";
       if (numericValue === 0) return "0";
       return "";
     }
