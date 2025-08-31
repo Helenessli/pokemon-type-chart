@@ -805,12 +805,24 @@ const expectedValues = [
   ],
 ];
 
-const SuperEffectiveChart = () => {
+interface SuperEffectiveChartProps {
+  onTestStateChange?: (testState: {
+    isTestMode: boolean;
+    timer: number;
+    correctCount: number;
+    errorCount: number;
+  }) => void;
+}
+
+const SuperEffectiveChart: React.FC<SuperEffectiveChartProps> = ({
+  onTestStateChange,
+}) => {
   return (
     <GameMode
       typeChart={typeChart}
       expectedValues={expectedValues}
       gameMode="super"
+      onTestStateChange={onTestStateChange}
     />
   );
 };

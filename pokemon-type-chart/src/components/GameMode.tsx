@@ -7,6 +7,12 @@ interface GameModeProps {
   expectedValues: (string | number)[][];
   gameMode: string;
   disableTestMode?: boolean;
+  onTestStateChange?: (testState: {
+    isTestMode: boolean;
+    timer: number;
+    correctCount: number;
+    errorCount: number;
+  }) => void;
 }
 
 const GameMode: React.FC<GameModeProps> = ({
@@ -15,6 +21,7 @@ const GameMode: React.FC<GameModeProps> = ({
   expectedValues,
   gameMode,
   disableTestMode = false,
+  onTestStateChange,
 }) => {
   const [showAnswers, setShowAnswers] = useState(true);
   const [userAnswers, setUserAnswers] = useState<(string | number)[][]>([]);
@@ -59,6 +66,18 @@ const GameMode: React.FC<GameModeProps> = ({
     }
     return () => clearInterval(interval);
   }, [isTestMode, correctCount, getTotalCorrect]);
+
+  // Notify parent component of test state changes
+  useEffect(() => {
+    if (onTestStateChange) {
+      onTestStateChange({
+        isTestMode,
+        timer,
+        correctCount,
+        errorCount,
+      });
+    }
+  }, [isTestMode, timer, correctCount, errorCount, onTestStateChange]);
 
   const handleCellClick = (rowIndex: number, colIndex: number) => {
     console.log(rowIndex, colIndex);
@@ -271,18 +290,6 @@ const GameMode: React.FC<GameModeProps> = ({
 
   return (
     <Container>
-      {isTestMode && (
-        <Row className="mb-3">
-          <Col className="text-center">
-            <h4>Errors: {errorCount}</h4>
-            <h4>
-              Correct: {correctCount}/{getTotalCorrect()}
-            </h4>
-            <h4>Time: {formatTime(timer)}</h4>
-          </Col>
-        </Row>
-      )}
-
       <Row>
         <Col className="d-flex justify-content-center">
           <table

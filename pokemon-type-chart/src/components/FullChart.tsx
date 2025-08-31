@@ -445,13 +445,23 @@ const expectedValues = [
   ["FAI", 1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 2, 0.5, 1],
 ];
 
-const FullChart = () => {
+interface FullChartProps {
+  onTestStateChange?: (testState: {
+    isTestMode: boolean;
+    timer: number;
+    correctCount: number;
+    errorCount: number;
+  }) => void;
+}
+
+const FullChart: React.FC<FullChartProps> = ({ onTestStateChange }) => {
   return (
     <GameMode
       typeChart={typeChart}
       expectedValues={expectedValues}
       gameMode="full"
       disableTestMode={true}
+      onTestStateChange={onTestStateChange}
     />
   );
 };

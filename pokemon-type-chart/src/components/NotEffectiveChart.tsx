@@ -805,12 +805,24 @@ const expectedValues = [
   ],
 ];
 
-const NotEffectiveChart = () => {
+interface NotEffectiveChartProps {
+  onTestStateChange?: (testState: {
+    isTestMode: boolean;
+    timer: number;
+    correctCount: number;
+    errorCount: number;
+  }) => void;
+}
+
+const NotEffectiveChart: React.FC<NotEffectiveChartProps> = ({
+  onTestStateChange,
+}) => {
   return (
     <GameMode
       typeChart={typeChart}
       expectedValues={expectedValues}
       gameMode="not"
+      onTestStateChange={onTestStateChange}
     />
   );
 };

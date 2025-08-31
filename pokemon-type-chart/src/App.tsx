@@ -7,51 +7,110 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 
 function App() {
   const [chartType, setChartType] = useState("full");
+  const [testState, setTestState] = useState({
+    isTestMode: false,
+    timer: 0,
+    correctCount: 0,
+    errorCount: 0,
+  });
+
+  // Format timer from seconds to MM:SS
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+  };
+
+  // Get total correct answers based on chart type
+  const getTotalCorrect = () => {
+    switch (chartType) {
+      case "full":
+        return 120;
+      case "super":
+        return 51;
+      case "not":
+        return 61;
+      case "no":
+        return 8;
+      default:
+        return 0;
+    }
+  };
 
   return (
-    <Container>
-      <Row className="mt-3">
-        <Col className="text-center">
-          <h1 className="mb-4">POKÉMON TYPE CHART</h1>
-        </Col>
-      </Row>
-      <Row className="mt-3">
-        <Col className="text-center">
-          <Button
-            variant="primary"
-            onClick={() => setChartType("full")}
-            className="m-2"
-          >
-            Full Chart
-          </Button>
-          <Button
-            variant="primary"
-            onClick={() => setChartType("super")}
-            className="m-2"
-          >
-            Super Effective Chart
-          </Button>
-          <Button
-            variant="primary"
-            onClick={() => setChartType("not")}
-            className="m-2"
-          >
-            Not Effective Chart
-          </Button>
-          <Button
-            variant="primary"
-            onClick={() => setChartType("no")}
-            className="m-2"
-          >
-            No Effect Chart
-          </Button>
-        </Col>
-      </Row>
-      {chartType === "full" && <FullChart />}
-      {chartType === "super" && <SuperEffectiveChart />}
-      {chartType === "not" && <NotEffectiveChart />}
-      {chartType === "no" && <NoEffectChart />}
-    </Container>
+    <>
+      <div className="header-container">
+        <h1 className="header-title">POKÉMON TYPE CHART</h1>
+        <div className="header-decoration"></div>
+        <div className="header-circle"></div>
+      </div>
+      <Container>
+        <Row className="chart-buttons-container">
+          <Col className="text-center">
+            <Button
+              variant="primary"
+              onClick={() => setChartType("full")}
+              className={`chart-button ${chartType === "full" ? "active" : ""}`}
+            >
+              Full
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => setChartType("super")}
+              className={`chart-button ${
+                chartType === "super" ? "active" : ""
+              }`}
+            >
+              Super-Effective
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => setChartType("not")}
+              className={`chart-button ${chartType === "not" ? "active" : ""}`}
+            >
+              Not-Effective
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => setChartType("no")}
+              className={`chart-button ${chartType === "no" ? "active" : ""}`}
+            >
+              Immune
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="text-center">
+            <div className="answers-display">
+              {testState.isTestMode ? (
+                <>
+                  Time: {formatTime(testState.timer)} Correct:{" "}
+                  {testState.correctCount}/{getTotalCorrect()} Errors:{" "}
+                  {testState.errorCount}
+                </>
+              ) : (
+                <>
+                  {chartType === "full" && "120 Answers"}
+                  {chartType === "super" && "51 Answers"}
+                  {chartType === "not" && "61 Answers"}
+                  {chartType === "no" && "8 Answers"}
+                </>
+              )}
+            </div>
+          </Col>
+        </Row>
+        {chartType === "full" && <FullChart onTestStateChange={setTestState} />}
+        {chartType === "super" && (
+          <SuperEffectiveChart onTestStateChange={setTestState} />
+        )}
+        {chartType === "not" && (
+          <NotEffectiveChart onTestStateChange={setTestState} />
+        )}
+        {chartType === "no" && (
+          <NoEffectChart onTestStateChange={setTestState} />
+        )}
+      </Container>
+    </>
   );
 }
 

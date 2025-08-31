@@ -805,12 +805,22 @@ const expectedValues = [
   ],
 ];
 
-const NoEffectChart = () => {
+interface NoEffectChartProps {
+  onTestStateChange?: (testState: {
+    isTestMode: boolean;
+    timer: number;
+    correctCount: number;
+    errorCount: number;
+  }) => void;
+}
+
+const NoEffectChart: React.FC<NoEffectChartProps> = ({ onTestStateChange }) => {
   return (
     <GameMode
       typeChart={typeChart}
       expectedValues={expectedValues}
       gameMode="no"
+      onTestStateChange={onTestStateChange}
     />
   );
 };
