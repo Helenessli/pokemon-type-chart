@@ -380,17 +380,17 @@ const GameMode: React.FC<GameModeProps> = ({
         <Col className="text-center">
           {!isTestMode && !disableTestMode && (
             <Button variant="primary" onClick={startTest} className="m-2">
-              Test Yourself
+              Begin Test
             </Button>
           )}
           {!isTestMode && disableTestMode && (
             <Button variant="secondary" disabled className="m-2">
-              Test Yourself
+              Begin Test
             </Button>
           )}
           {isTestMode && (
             <Button variant="secondary" onClick={resetTest} className="m-2">
-              Reset Test
+              End Test
             </Button>
           )}
           {!isTestMode && (

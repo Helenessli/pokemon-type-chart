@@ -84,9 +84,13 @@ function App() {
             <div className="answers-display">
               {testState.isTestMode ? (
                 <>
-                  Time: {formatTime(testState.timer)} Correct:{" "}
-                  {testState.correctCount}/{getTotalCorrect()} Errors:{" "}
-                  {testState.errorCount}
+                  <span>Time: {formatTime(testState.timer)}</span>
+                  <span className="test-spacer"></span>
+                  <span>
+                    Correct: {testState.correctCount}/{getTotalCorrect()}
+                  </span>
+                  <span className="test-spacer"></span>
+                  <span>Errors: {testState.errorCount}</span>
                 </>
               ) : (
                 <>

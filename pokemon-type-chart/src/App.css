@@ -99,11 +99,16 @@ body {
 .answers-display {
   background-color: #ff9191;
   color: white;
-  padding: 3px 10px;
+  padding: 5px 10px;
   border-radius: 15px;
   margin: 20px auto;
   text-align: center;
   font-weight: 500;
-  font-size: 1.1rem;
-  max-width: 400px;
+  font-size: 1rem;
+  max-width: 350px;
+}
+
+.test-spacer {
+  display: inline-block;
+  width: 20px;
 }
