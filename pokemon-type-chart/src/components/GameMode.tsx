@@ -111,8 +111,48 @@ const GameMode: React.FC<GameModeProps> = ({
   };
 
   const getCellStyle = (rowIndex: number, colIndex: number, value: string) => {
-    if (colIndex === 0)
+    // Check for type-specific background colors (including leftmost column and top row)
+    if (value === "NOR" || value === "NORMAL")
+      return { backgroundColor: "#aaaa99", color: "black" };
+    if (value === "FIR" || value === "FIRE")
+      return { backgroundColor: "#ff4422", color: "white" };
+    if (value === "WAT" || value === "WATER")
+      return { backgroundColor: "#3499fe", color: "white" };
+    if (value === "ELE" || value === "ELECTRIC")
+      return { backgroundColor: "#ffcc33", color: "black" };
+    if (value === "GRA" || value === "GRASS")
+      return { backgroundColor: "#77cc55", color: "white" };
+    if (value === "ICE" || value === "ICE")
+      return { backgroundColor: "#65ccff", color: "black" };
+    if (value === "FIG" || value === "FIGHTING")
+      return { backgroundColor: "#bb5545", color: "white" };
+    if (value === "POI" || value === "POISON")
+      return { backgroundColor: "#aa5699", color: "white" };
+    if (value === "GRO" || value === "GROUND")
+      return { backgroundColor: "#dcbb55", color: "black" };
+    if (value === "FLY" || value === "FLYING")
+      return { backgroundColor: "#8899ff", color: "white" };
+    if (value === "PSY" || value === "PSYCHIC")
+      return { backgroundColor: "#ff5699", color: "white" };
+    if (value === "BUG" || value === "BUG")
+      return { backgroundColor: "#aabb23", color: "white" };
+    if (value === "ROC" || value === "ROCK")
+      return { backgroundColor: "#bbaa66", color: "black" };
+    if (value === "GHO" || value === "GHOST")
+      return { backgroundColor: "#6666bb", color: "white" };
+    if (value === "DRA" || value === "DRAGON")
+      return { backgroundColor: "#7766ee", color: "white" };
+    if (value === "DAR" || value === "DARK")
+      return { backgroundColor: "#775544", color: "white" };
+    if (value === "STE" || value === "STEEL")
+      return { backgroundColor: "#aaaabb", color: "black" };
+    if (value === "FAI" || value === "FAIRY")
+      return { backgroundColor: "#ee99ee", color: "black" };
+
+    // Handle top row (rowIndex === -1) - just return transparent for non-type cells
+    if (rowIndex === -1) {
       return { backgroundColor: "transparent", color: "black" };
+    }
 
     const numericValue = parseFloat(value);
     const expectedValue = expectedValues[rowIndex + 1][colIndex];
@@ -200,7 +240,7 @@ const GameMode: React.FC<GameModeProps> = ({
                       key={colIndex}
                       style={
                         rowIndex === 0
-                          ? {}
+                          ? getCellStyle(-1, colIndex, value)
                           : getCellStyle(rowIndex - 1, colIndex, value)
                       }
                       onClick={
