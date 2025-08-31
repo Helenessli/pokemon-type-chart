@@ -321,6 +321,10 @@ const GameMode: React.FC<GameModeProps> = ({
                         ...(rowIndex === 0 && {
                           fontSize: "0.8rem",
                         }),
+                        ...(rowIndex !== 0 &&
+                          colIndex !== 0 && {
+                            fontSize: "0.8rem",
+                          }),
                         height: "32px",
                         maxHeight: "32px",
                         minHeight: "32px",
