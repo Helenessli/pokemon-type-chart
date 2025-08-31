@@ -230,19 +230,48 @@ const GameMode: React.FC<GameModeProps> = ({
       )}
 
       <Row>
-        <Col>
-          <table className="table table-bordered">
+        <Col className="d-flex justify-content-center">
+          <table
+            className="table table-bordered"
+            style={{
+              maxWidth: "900px",
+            }}
+          >
             <tbody>
               {typeChart.map((row, rowIndex) => (
-                <tr key={rowIndex}>
+                <tr
+                  key={rowIndex}
+                  style={{ height: "32px", maxHeight: "32px" }}
+                >
                   {row.map((value, colIndex) => (
                     <td
                       key={colIndex}
-                      style={
-                        rowIndex === 0
+                      style={{
+                        ...(rowIndex === 0
                           ? getCellStyle(-1, colIndex, value)
-                          : getCellStyle(rowIndex - 1, colIndex, value)
-                      }
+                          : getCellStyle(rowIndex - 1, colIndex, value)),
+                        ...(colIndex === 0 && {
+                          width: "80px",
+                          verticalAlign: "middle",
+                        }),
+                        ...(colIndex !== 0 && {
+                          width: "47px",
+                          minWidth: "47px",
+                          maxWidth: "47px",
+                        }),
+                        ...((rowIndex === 0 || colIndex === 0) && {
+                          fontSize: "0.875rem",
+                        }),
+                        height: "32px",
+                        maxHeight: "32px",
+                        minHeight: "32px",
+                        paddingTop: "4px",
+                        paddingBottom: "4px",
+                        textAlign: "center",
+                        verticalAlign: "middle",
+                        lineHeight: "24px",
+                        overflow: "hidden",
+                      }}
                       onClick={
                         rowIndex === 0
                           ? undefined
