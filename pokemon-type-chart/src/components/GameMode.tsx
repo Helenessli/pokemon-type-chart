@@ -251,16 +251,21 @@ const GameMode: React.FC<GameModeProps> = ({
                           ? getCellStyle(-1, colIndex, value)
                           : getCellStyle(rowIndex - 1, colIndex, value)),
                         ...(colIndex === 0 && {
-                          width: "80px",
+                          width: "66px",
+                          minWidth: "66px",
+                          maxWidth: "66px",
                           verticalAlign: "middle",
                         }),
                         ...(colIndex !== 0 && {
-                          width: "47px",
-                          minWidth: "47px",
-                          maxWidth: "47px",
+                          width: "40px",
+                          minWidth: "40px",
+                          maxWidth: "40px",
                         }),
-                        ...((rowIndex === 0 || colIndex === 0) && {
-                          fontSize: "0.875rem",
+                        ...(colIndex === 0 && {
+                          fontSize: "0.8rem",
+                        }),
+                        ...(rowIndex === 0 && {
+                          fontSize: "0.8rem",
                         }),
                         height: "32px",
                         maxHeight: "32px",
