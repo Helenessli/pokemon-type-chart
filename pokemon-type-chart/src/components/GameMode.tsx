@@ -32,6 +32,10 @@ const GameMode: React.FC<GameModeProps> = ({
     new Set()
   );
   const [timer, setTimer] = useState(0);
+  const [hoveredCell, setHoveredCell] = useState<{
+    row: number;
+    col: number;
+  } | null>(null);
 
   // Get total correct answers based on game mode
   const getTotalCorrect = () => {
@@ -127,6 +131,14 @@ const GameMode: React.FC<GameModeProps> = ({
     setCorrectCount(0);
     setClickedCorrectCells(new Set());
     setTimer(0);
+  };
+
+  const handleCellMouseEnter = (rowIndex: number, colIndex: number) => {
+    setHoveredCell({ row: rowIndex, col: colIndex });
+  };
+
+  const handleCellMouseLeave = () => {
+    setHoveredCell(null);
   };
 
   const getCellStyle = (rowIndex: number, colIndex: number, value: string) => {
@@ -259,6 +271,57 @@ const GameMode: React.FC<GameModeProps> = ({
     return { backgroundColor: "transparent", color: "black" };
   };
 
+  const getCellClassName = (rowIndex: number, colIndex: number) => {
+    // No hover highlighting for non-test mode - needs to be deprecated
+    return "";
+  };
+
+  const getTestModeCellClassName = (rowIndex: number, colIndex: number) => {
+    let className = "";
+
+    // Add hover highlighting classes for test mode
+    if (hoveredCell) {
+      if (rowIndex === hoveredCell.row && colIndex === hoveredCell.col) {
+        // Check if user has answered this cell correctly
+        const userAnswer = userAnswers[rowIndex + 1]?.[colIndex];
+        const expectedValue = expectedValues[rowIndex + 1]?.[colIndex];
+
+        if (userAnswer === expectedValue) {
+          // User answered correctly - apply dimming effect
+          className += " chart-cell-hover-value";
+        } else {
+          // User hasn't answered or answered incorrectly - apply pink highlighting
+          className += " chart-cell-hover";
+        }
+      } else if (rowIndex === hoveredCell.row || colIndex === hoveredCell.col) {
+        // Check if this cell has a user answer
+        const userAnswer = userAnswers[rowIndex + 1]?.[colIndex];
+
+        if (userAnswer !== undefined) {
+          // User has answered this cell - only apply dimming effect
+          const numericValue = parseFloat(userAnswer.toString());
+
+          if (
+            numericValue === 2 ||
+            numericValue === 0.5 ||
+            numericValue === 0
+          ) {
+            // User answered this cell correctly and it has a value - apply dimming effect
+            className += " chart-col-highlight-value";
+          } else {
+            // User answered this cell correctly but it's empty - apply pink highlighting
+            className += " chart-col-highlight";
+          }
+        } else {
+          // User hasn't answered this cell - apply pink row/column highlight
+          className += " chart-row-highlight";
+        }
+      }
+    }
+
+    return className;
+  };
+
   const getCellContent = (
     rowIndex: number,
     colIndex: number,
@@ -354,14 +417,25 @@ const GameMode: React.FC<GameModeProps> = ({
                           ? undefined
                           : () => handleCellClick(rowIndex - 1, colIndex)
                       }
+                      onMouseEnter={
+                        rowIndex === 0 || colIndex === 0
+                          ? undefined
+                          : () => handleCellMouseEnter(rowIndex - 1, colIndex)
+                      }
+                      onMouseLeave={
+                        rowIndex === 0 || colIndex === 0
+                          ? undefined
+                          : handleCellMouseLeave
+                      }
                       className={
                         rowIndex === 0
                           ? ""
                           : colIndex === 0
                           ? "type-header"
                           : isTestMode
-                          ? "clickable-cell"
-                          : ""
+                          ? "clickable-cell " +
+                            getTestModeCellClassName(rowIndex - 1, colIndex)
+                          : getCellClassName(rowIndex - 1, colIndex)
                       }
                     >
                       {rowIndex === 0

@@ -79,7 +79,7 @@ body {
 }
 
 .chart-buttons-container {
-  margin-top: 30px;
+  margin-top: 25px;
 }
 
 .chart-button:hover {
@@ -120,7 +120,7 @@ body {
   color: white;
   padding: 5px 10px;
   border-radius: 15px;
-  margin: 20px auto;
+  margin: 15px auto;
   text-align: center;
   font-weight: 500;
   font-size: 1rem;
@@ -130,4 +130,25 @@ body {
 .test-spacer {
   display: inline-block;
   width: 20px;
+}
+
+/* Chart hover effects */
+.chart-cell-hover {
+  background-color: rgba(255, 145, 145, 0.4) !important;
+}
+
+.chart-row-highlight {
+  background-color: rgba(255, 145, 145, 0.15) !important;
+}
+
+.chart-col-highlight {
+  background-color: rgba(255, 145, 145, 0.15) !important;
+}
+
+.chart-col-highlight-value {
+  opacity: 0.7 !important;
+}
+
+.chart-cell-hover-value {
+  opacity: 0.5 !important;
 }
