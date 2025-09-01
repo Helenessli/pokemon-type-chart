@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 interface GameModeProps {
@@ -37,6 +37,9 @@ const GameMode: React.FC<GameModeProps> = ({
     col: number;
   } | null>(null);
 
+  // Use ref to track current correct count for timer
+  const correctCountRef = useRef(correctCount);
+
   // Get total correct answers based on game mode
   const getTotalCorrect = () => {
     switch (gameMode) {
@@ -60,16 +63,27 @@ const GameMode: React.FC<GameModeProps> = ({
     return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
+  // Update ref when correctCount changes
+  useEffect(() => {
+    correctCountRef.current = correctCount;
+  }, [correctCount]);
+
   // Timer effect - starts when test begins, stops when all correct grids found
   useEffect(() => {
     let interval: number;
-    if (isTestMode && correctCount < getTotalCorrect()) {
+    if (isTestMode) {
       interval = setInterval(() => {
-        setTimer((prev) => prev + 1);
+        setTimer((prev) => {
+          // Only increment if we haven't found all answers yet
+          if (correctCountRef.current < getTotalCorrect()) {
+            return prev + 1;
+          }
+          return prev;
+        });
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [isTestMode, correctCount, getTotalCorrect]);
+  }, [isTestMode]);
 
   // Notify parent component of test state changes
   useEffect(() => {
